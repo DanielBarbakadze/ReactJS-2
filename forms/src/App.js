@@ -6,12 +6,14 @@ class App extends React.Component {
 
   state = {
     username: '',
-    password: ''
+    password: '',
+    inputErros: []
   }
 
-  handleFieldChange(event) {
+  handleFieldChange(event,errors) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
+      inputErros: errors
     })
   }
 
@@ -32,11 +34,20 @@ class App extends React.Component {
           name='password'
           value={this.state.password}
           type='password' 
-          onChange={(e) => this.handleFieldChange(e)}
+          onChange={(e,errors) => this.handleFieldChange(e,errors)}
+          inputValidations = {[
+            {
+              name: 'minLengthError',
+              params: {
+                minLength: 3,
+                message: 'Please enter minimum 3 letters'
+              }
+            }
+          ]}
         />
       </div>
       <div>
-        <button onClick={() => console.log(this.state.username,this.state.password)}>
+        <button onClick={() => console.log(this.state)}>
           Submit
         </button>
       </div>
