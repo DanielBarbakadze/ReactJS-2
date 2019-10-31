@@ -35,6 +35,9 @@ class Input extends React.Component {
             })
         }
         onChange(event,this.state.errors);
+        setTimeout(() => {
+            console.log(this.state.errors)
+        }, 1);
     }
 
     render () {
@@ -47,12 +50,15 @@ class Input extends React.Component {
         // console.log(this.state)
 
         return (
+            <div>
             <input
                 name={name}
                 onChange={(event) => this.handleChange(event)}
                 value={value}
                 type={type}
             />
+            </div>
+
         )
     }
 }

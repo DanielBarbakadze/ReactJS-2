@@ -7,15 +7,24 @@ class App extends React.Component {
   state = {
     username: '',
     password: '',
-    inputErros: []
+    inputErros: [],
+    showErrors: []
   }
 
   handleFieldChange(event,errors) {
+    console.log(errors)
     this.setState({
       [event.target.name]: event.target.value,
       inputErros: errors
     })
-  }
+  };
+
+  handleShowErrors(){
+    this.setState({
+      showErrors: this.state.inputErros
+    })
+    console.log(this.state.showErrors,this.state.inputErros);
+  };
 
   render (){
     return(
@@ -47,9 +56,12 @@ class App extends React.Component {
         />
       </div>
       <div>
-        <button onClick={() => console.log(this.state)}>
+        <button onClick={() => this.handleShowErrors()}>
           Submit
         </button>
+      </div>
+      <div>
+        <span>{this.state.showErrors}</span>
       </div>
     </div>
     );
