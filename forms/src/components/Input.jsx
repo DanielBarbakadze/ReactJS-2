@@ -1,5 +1,6 @@
 import React from 'react';
-import * as Validations from '../lib/validation'
+import * as Validations from '../lib/validation';
+import * as Formatters from '../lib/formatter';
 class Input extends React.Component {
 
     state = {
@@ -10,10 +11,12 @@ class Input extends React.Component {
         // console.log(event.target);
         const{
             onChange,
-            inputValidations = []
+            inputValidations = [],
+            formatterValidations = []
         } = this.props
         
         let tempErrors = [];
+        let formatterError = false;
 
         if(inputValidations.length) {
             inputValidations.forEach(item => {
@@ -23,6 +26,17 @@ class Input extends React.Component {
                 }
             });
         }
+
+        if(formatterValidations.length) {
+            formatterValidations.forEach(item =>{
+                let error = Formatters[item.name](event.target.value);
+
+                if(error) {
+                    formatterError = true;
+                }
+            })
+        }
+
 
         if(tempErrors.length) {
             this.setState({
@@ -34,10 +48,7 @@ class Input extends React.Component {
                 errors: []
             })
         }
-        onChange(event,this.state.errors);
-        setTimeout(() => {
-            console.log(this.state.errors)
-        }, 1);
+        onChange(event,tempErrors,formatterError);
     }
 
     render () {

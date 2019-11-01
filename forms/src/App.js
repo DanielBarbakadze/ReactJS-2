@@ -11,8 +11,8 @@ class App extends React.Component {
     showErrors: []
   }
 
-  handleFieldChange(event,errors) {
-    console.log(errors)
+  handleFieldChange(event,errors,formatter) {
+    console.log(errors,formatter)
     this.setState({
       [event.target.name]: event.target.value,
       inputErros: errors
@@ -43,7 +43,7 @@ class App extends React.Component {
           name='password'
           value={this.state.password}
           type='password' 
-          onChange={(e,errors) => this.handleFieldChange(e,errors)}
+          onChange={(e,errors,formatter) => this.handleFieldChange(e,errors,formatter)}
           inputValidations = {[
             {
               name: 'minLengthError',
@@ -51,6 +51,11 @@ class App extends React.Component {
                 minLength: 3,
                 message: 'Please enter minimum 3 letters'
               }
+            }
+          ]}
+          formatterValidations = {[
+            {
+              name: 'onlyNumber'
             }
           ]}
         />

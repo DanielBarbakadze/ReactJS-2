@@ -6,11 +6,7 @@ function minLengthError (value, params) {
     if(value && value.length < minLength){
         return message
     }
-    if(isNaN(value)){
-        return 'enter numbers'
-    }
-
-    return false;
+    
 }
 
 export {
